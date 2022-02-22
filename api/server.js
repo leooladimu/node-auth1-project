@@ -1,13 +1,13 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-const express = require("express");	
-const helmet = require("helmet")
-const cors = require("cors")
+const express = require('express')	
+const helmet = require('helmet')
+const cors = require('cors')
 	
-const session = require("express-session")
-const Store = require("connect-session-knex")(session)
+const session = require('express-session')
+const Store = require('connect-session-knex')(session)
 	
-const authRouter = require("./auth/auth-router")
-const usersRouter = require("./users/users-router")
+const authRouter = require('./auth/auth-router')
+const usersRouter = require('./users/users-router')
 	
 	/**
 	Do what needs to be done to support sessions with the `express-session` package!
@@ -30,8 +30,8 @@ server.use(cors())
 	
 server.use(
 	session({
-	  name: "chocolatechip",
-	  secret: process.env.SESSION || "the secret",
+	  name: 'chocolatechip',
+	  secret: process.env.SESSION || 'the secret',
 	  cookie: {
 	    maxAge: 1000 * 60 * 60,
 	    secure: false,
@@ -40,20 +40,20 @@ server.use(
 	  resave: false,
 	  saveUninitialized: false,
 	  store: new Store({
-	    knex: require("../data/db-config"),
-	    tablename: "sessions",
-	    sidfieldname: "sid",
+	    knex: require('../data/db-config'),
+	    tablename: 'sessions',
+	    sidfieldname: 'sid',
 	    createtable: true,
-	    clearInterval: 1000 * 60 * 60,
+	    clearInterval: 1000 * 60 * 60
 	  }),
 	})
 )
 	
-server.use("/api/auth", authRouter)
-server.use("/api/users", usersRouter)
+server.use('/api/auth', authRouter)
+server.use('/api/users', usersRouter)
 	
-server.get("/", (req, res) => {
-	res.json({ api: "up" });
+server.get('/', (req, res) => {
+	res.json({ api: 'up' })
 })
 	
 	// eslint-disable-next-line no-unused-vars
@@ -61,9 +61,9 @@ server.use((err, req, res, next) => {
 	// eslint-disable-line
   res.status(err.status || 500).json({
 	  message: err.message,
-	  stack: err.stack,
-  });
-});
+	  stack: err.stack
+  })
+})
 	
 module.exports = server
 
